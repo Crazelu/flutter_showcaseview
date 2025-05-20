@@ -72,6 +72,7 @@ class ShowcaseView {
     this.scrollDuration = Constants.defaultScrollDuration,
     this.disableMovingAnimation = false,
     this.disableScaleAnimation = false,
+    this.disableOpacityAnimation = false,
     this.enableAutoScroll = false,
     this.disableBarrierInteraction = false,
     this.enableShowcase = true,
@@ -123,6 +124,10 @@ class ShowcaseView {
   /// Whether to disable bouncing/moving animation for all tooltips while
   /// showcasing.
   bool disableMovingAnimation;
+
+  /// Whether to disable opacity animation for all tooltips while
+  /// showcasing.
+  bool disableOpacityAnimation;
 
   /// Whether to disable scale animation for all the default tooltips when
   /// showcase appears and goes away.

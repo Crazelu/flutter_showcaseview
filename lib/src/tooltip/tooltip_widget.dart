@@ -49,6 +49,7 @@ class ToolTipWidget extends StatefulWidget {
     required this.showArrow,
     required this.onTooltipTap,
     required this.movingAnimationDuration,
+    required this.opacityAnimationDuration,
     required this.titleTextAlign,
     required this.descriptionTextAlign,
     required this.titleAlignment,
@@ -58,6 +59,7 @@ class ToolTipWidget extends StatefulWidget {
     required this.targetPadding,
     required this.disableMovingAnimation,
     required this.disableScaleAnimation,
+    required this.disableOpacityAnimation,
     required this.tooltipBorderRadius,
     required this.scaleAnimationDuration,
     required this.scaleAnimationCurve,
@@ -90,8 +92,10 @@ class ToolTipWidget extends StatefulWidget {
   final VoidCallback? onTooltipTap;
   final EdgeInsets? tooltipPadding;
   final Duration movingAnimationDuration;
+  final Duration opacityAnimationDuration;
   final bool disableMovingAnimation;
   final bool disableScaleAnimation;
+  final bool disableOpacityAnimation;
   final BorderRadius? tooltipBorderRadius;
   final Duration scaleAnimationDuration;
   final Curve scaleAnimationCurve;
@@ -137,6 +141,16 @@ class _ToolTipWidgetState extends State<ToolTipWidget>
     curve: widget.scaleAnimationCurve,
   );
 
+  late final AnimationController _opacityAnimationController =
+      AnimationController(
+    duration: widget.opacityAnimationDuration,
+    vsync: this,
+    lowerBound: widget.disableOpacityAnimation ? 1 : 0,
+  );
+
+  late final Animation<double> _opacityAnimation =
+      Tween(begin: 0.0, end: 1.0).animate(_opacityAnimationController);
+
   @override
   void initState() {
     super.initState();
@@ -153,6 +167,7 @@ class _ToolTipWidgetState extends State<ToolTipWidget>
     if (!widget.disableMovingAnimation) _movingAnimationController.forward();
     widget.showcaseController.reverseAnimationCallback =
         widget.disableScaleAnimation ? null : _scaleAnimationController.reverse;
+    if (!widget.disableOpacityAnimation) _opacityAnimationController.forward();
   }
 
   @override
@@ -254,8 +269,10 @@ class _ToolTipWidgetState extends State<ToolTipWidget>
       child: _AnimatedTooltipMultiLayout(
         scaleController: _scaleAnimationController,
         moveController: _movingAnimationController,
+        opacityController: _opacityAnimationController,
         scaleAnimation: _scaleAnimation,
         moveAnimation: _movingAnimation,
+        opacityAnimation: _opacityAnimation,
         targetPosition: targetPosition,
         targetSize: targetSize,
         position: widget.tooltipPosition,

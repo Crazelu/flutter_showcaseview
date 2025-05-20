@@ -328,11 +328,14 @@ class ShowcaseController {
               tooltipPadding: config.tooltipPadding,
               disableMovingAnimation: config.disableMovingAnimation ??
                   showcaseView.disableMovingAnimation,
+              disableOpacityAnimation: config.disableOpacityAnimation ??
+                  showcaseView.disableOpacityAnimation,
               disableScaleAnimation: (config.disableScaleAnimation ??
                       showcaseView.disableScaleAnimation) ||
                   config.container != null,
               movingAnimationDuration: config.movingAnimationDuration,
               tooltipBorderRadius: config.tooltipBorderRadius,
+              opacityAnimationDuration: config.opacityAnimationDuration,
               scaleAnimationDuration: config.scaleAnimationDuration,
               scaleAnimationCurve: config.scaleAnimationCurve,
               scaleAnimationAlignment: config.scaleAnimationAlignment,

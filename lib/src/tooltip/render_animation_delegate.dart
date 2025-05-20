@@ -34,8 +34,10 @@ class _RenderAnimationDelegate extends _RenderPositionDelegate {
   _RenderAnimationDelegate({
     required AnimationController scaleController,
     required AnimationController moveController,
+    required AnimationController opacityController,
     required Animation<double> scaleAnimation,
     required Animation<double> moveAnimation,
+    required Animation<double> opacityAnimation,
     required this.scaleAlignment,
     required super.targetPosition,
     required super.targetSize,
@@ -51,17 +53,22 @@ class _RenderAnimationDelegate extends _RenderPositionDelegate {
     required super.targetTooltipGap,
   })  : _scaleController = scaleController,
         _moveController = moveController,
+        _opacityController = opacityController,
         _scaleAnimation = scaleAnimation,
-        _moveAnimation = moveAnimation {
+        _moveAnimation = moveAnimation,
+        _opacityAnimation = opacityAnimation {
     // Add listeners to trigger repaint when animations change.
     _scaleAnimation.addListener(_effectivelyMarkNeedsPaint);
     _moveAnimation.addListener(_effectivelyMarkNeedsPaint);
+    _opacityAnimation.addListener(_effectivelyMarkNeedsPaint);
   }
 
   AnimationController _scaleController;
   AnimationController _moveController;
+  AnimationController _opacityController;
   Animation<double> _scaleAnimation;
   Animation<double> _moveAnimation;
+  Animation<double> _opacityAnimation;
   Alignment? scaleAlignment;
 
   /// This will stop extra repaint when paint function is already in progress
@@ -77,6 +84,12 @@ class _RenderAnimationDelegate extends _RenderPositionDelegate {
   set moveController(AnimationController value) {
     if (_moveController == value) return;
     _moveController = value;
+  }
+
+  /// Updates the opacity animation controller.
+  set opacityController(AnimationController value) {
+    if (_opacityController == value) return;
+    _opacityController = value;
   }
 
   /// Updates the scale animation and refreshes listeners.
@@ -97,6 +110,15 @@ class _RenderAnimationDelegate extends _RenderPositionDelegate {
     _effectivelyMarkNeedsPaint();
   }
 
+  /// Updates the opacity animation and refreshes listeners.
+  set opacityAnimation(Animation<double> value) {
+    if (_opacityAnimation == value) return;
+    _opacityAnimation.removeListener(_effectivelyMarkNeedsPaint);
+    _opacityAnimation = value;
+    _opacityAnimation.addListener(_effectivelyMarkNeedsPaint);
+    _effectivelyMarkNeedsPaint();
+  }
+
   void _effectivelyMarkNeedsPaint() {
     if (_isPreviousRepaintInProgress) return;
     _isPreviousRepaintInProgress = true;
@@ -114,6 +136,11 @@ class _RenderAnimationDelegate extends _RenderPositionDelegate {
   @override
   void paint(PaintingContext context, Offset offset) {
     var child = firstChild;
+
+    final Paint paint = Paint()
+      ..color = Color.fromRGBO(0, 0, 0, _opacityAnimation.value);
+    final Rect layerBounds = offset & size;
+    context.canvas.saveLayer(layerBounds, paint);
 
     while (child != null) {
       // As we have checked above it is safe to force null check
@@ -193,6 +220,7 @@ class _RenderAnimationDelegate extends _RenderPositionDelegate {
       context.canvas.restore();
       child = childParentData.nextSibling;
     }
+    context.canvas.restore();
     _isPreviousRepaintInProgress = false;
   }
 

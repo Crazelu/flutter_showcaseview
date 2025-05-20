@@ -27,8 +27,8 @@ class Constants {
   Constants._();
 
   /// Arrow dimensions
-  static const double arrowWidth = 18;
-  static const double arrowHeight = 9;
+  static const double arrowWidth = 26;
+  static const double arrowHeight = 12;
 
   static const double arrowStrokeWidth = 10;
 
@@ -59,6 +59,8 @@ class Constants {
       ShowcaseCircularProgressIndicator();
 
   static const Duration defaultAnimationDuration = Duration(milliseconds: 2000);
+  static const Duration defaultOpacityAnimationDuration =
+      Duration(milliseconds: 250);
 
   /// Default scope name when none is specified
   static const String defaultScope = '_showcaseDefaultScope';

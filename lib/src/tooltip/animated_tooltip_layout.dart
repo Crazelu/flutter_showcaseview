@@ -26,8 +26,10 @@ class _AnimatedTooltipMultiLayout extends MultiChildRenderObjectWidget {
     required super.children,
     required this.scaleController,
     required this.moveController,
+    required this.opacityController,
     required this.scaleAnimation,
     required this.moveAnimation,
+    required this.opacityAnimation,
     required this.targetPosition,
     required this.targetSize,
     required this.screenSize,
@@ -48,8 +50,10 @@ class _AnimatedTooltipMultiLayout extends MultiChildRenderObjectWidget {
 
   final AnimationController scaleController;
   final AnimationController moveController;
+  final AnimationController opacityController;
   final Animation<double> scaleAnimation;
   final Animation<double> moveAnimation;
+  final Animation<double> opacityAnimation;
   final Offset targetPosition;
   final Size targetSize;
   final TooltipPosition? position;
@@ -69,8 +73,10 @@ class _AnimatedTooltipMultiLayout extends MultiChildRenderObjectWidget {
     return _RenderAnimationDelegate(
       scaleController: scaleController,
       moveController: moveController,
+      opacityController: opacityController,
       scaleAnimation: scaleAnimation,
       moveAnimation: moveAnimation,
+      opacityAnimation: opacityAnimation,
       targetPosition: targetPosition,
       targetSize: targetSize,
       position: position,
@@ -95,8 +101,10 @@ class _AnimatedTooltipMultiLayout extends MultiChildRenderObjectWidget {
     renderObject
       ..scaleController = scaleController
       ..moveController = moveController
+      ..opacityController = opacityController
       ..scaleAnimation = scaleAnimation
       ..moveAnimation = moveAnimation
+      ..opacityAnimation = opacityAnimation
       ..targetPosition = targetPosition
       ..targetSize = targetSize
       ..position = position

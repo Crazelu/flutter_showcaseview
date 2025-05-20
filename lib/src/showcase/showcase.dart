@@ -84,6 +84,7 @@ class Showcase extends StatefulWidget {
     this.movingAnimationDuration = const Duration(milliseconds: 2000),
     this.disableMovingAnimation,
     this.disableScaleAnimation,
+    this.disableOpacityAnimation,
     this.tooltipPadding =
         const EdgeInsets.symmetric(vertical: 8, horizontal: 8),
     this.onToolTipClick,
@@ -95,6 +96,7 @@ class Showcase extends StatefulWidget {
     this.tooltipBorderRadius,
     this.disableDefaultTargetGestures = false,
     this.scaleAnimationDuration = const Duration(milliseconds: 300),
+    this.opacityAnimationDuration = Constants.defaultOpacityAnimationDuration,
     this.scaleAnimationCurve = Curves.easeIn,
     this.scaleAnimationAlignment,
     this.tooltipPosition,
@@ -185,7 +187,9 @@ class Showcase extends StatefulWidget {
     this.onTargetClick,
     this.disposeOnTap,
     this.movingAnimationDuration = Constants.defaultAnimationDuration,
+    this.opacityAnimationDuration = Constants.defaultOpacityAnimationDuration,
     this.disableMovingAnimation,
+    this.disableOpacityAnimation,
     this.targetPadding = EdgeInsets.zero,
     this.blurValue,
     this.onTargetLongPress,
@@ -346,6 +350,11 @@ class Showcase extends StatefulWidget {
   /// Default to [Duration(milliseconds: 2000)]
   final Duration movingAnimationDuration;
 
+  /// The duration of time the opacity animation of tooltip should last.
+  ///
+  /// Default to [Duration(milliseconds: 250)]
+  final Duration opacityAnimationDuration;
+
   /// Triggered when default tooltip is tapped
   final VoidCallback? onToolTipClick;
 
@@ -372,6 +381,12 @@ class Showcase extends StatefulWidget {
   ///
   /// Default to `false`
   final bool? disableScaleAnimation;
+
+  /// Whether to disable the opacity animation for tooltip when
+  /// showcase is displayed.
+  ///
+  /// Default to `false`
+  final bool? disableOpacityAnimation;
 
   /// Padding around target widget
   ///
