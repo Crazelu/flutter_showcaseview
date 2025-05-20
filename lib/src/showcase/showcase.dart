@@ -201,7 +201,7 @@ class Showcase extends StatefulWidget {
     this.enableAutoScroll,
     this.toolTipMargin = 14,
     this.targetTooltipGap = 10,
-  })  : showArrow = false,
+  })  : showArrow = true,
         onToolTipClick = null,
         scaleAnimationDuration = const Duration(milliseconds: 300),
         scaleAnimationCurve = Curves.decelerate,
