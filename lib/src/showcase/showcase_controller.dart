@@ -200,7 +200,9 @@ class ShowcaseController {
   void handleBarrierTap() {
     config.onBarrierClick?.call();
     if (showcaseView.disableBarrierInteraction ||
-        config.disableBarrierInteraction) return;
+        config.disableBarrierInteraction) {
+      return;
+    }
     _nextIfAny();
   }
 
@@ -351,6 +353,7 @@ class ShowcaseController {
               targetPadding: config.targetPadding,
               targetTooltipGap: config.targetTooltipGap,
               showcaseController: this,
+              arrowConfig: showcaseView.globalToolTipArrowConfig,
             ),
             if (_getFloatingActionWidget case final floatAction?) floatAction,
           ];

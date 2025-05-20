@@ -38,7 +38,7 @@ class _Arrow extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
-    canvas.drawPath(_getTrianglePath(size), _paint);
+    canvas.drawPath(_getTrianglePath(), _paint);
   }
 
   @override
@@ -48,28 +48,11 @@ class _Arrow extends CustomPainter {
         oldDelegate.strokeWidth != strokeWidth;
   }
 
-  Path _getTrianglePath(Size size) {
-    final path = Path();
-
-    final topLeft = Offset(0, size.height);
-    final topRight = Offset(size.width, size.height);
-    final peakLeft = Offset(size.width * 0.4, size.height * 0.2);
-    final peakRight = Offset(size.width * 0.65, size.height * 0.2);
-    final peakCenter = Offset(size.width * 0.5, 0);
-
-    path.moveTo(topLeft.dx, topLeft.dy);
-    path.lineTo(peakLeft.dx, peakLeft.dy);
-
-    path.quadraticBezierTo(
-      peakCenter.dx,
-      -size.height * 0.05,
-      peakRight.dx,
-      peakRight.dy,
-    );
-
-    path.lineTo(topRight.dx, topRight.dy);
-    path.close();
-
-    return path;
+  Path _getTrianglePath() {
+    return Path()
+      ..moveTo(0, Constants.arrowHeight)
+      ..lineTo(Constants.arrowWidth * 0.5, 0)
+      ..lineTo(Constants.arrowWidth, Constants.arrowHeight)
+      ..lineTo(0, Constants.arrowHeight);
   }
 }

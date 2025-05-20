@@ -25,6 +25,7 @@ import 'package:flutter/material.dart';
 
 import '../models/tooltip_action_button.dart';
 import '../models/tooltip_action_config.dart';
+import '../models/tooltip_arrow_config.dart';
 import '../utils/constants.dart';
 import '../utils/enum.dart';
 import '../utils/overlay_manager.dart';
@@ -80,6 +81,7 @@ class ShowcaseView {
     this.globalTooltipActions,
     this.globalFloatingActionWidget,
     this.hideFloatingActionWidgetForShowcase = const [],
+    this.globalToolTipArrowConfig,
   }) {
     ShowcaseService.instance.register(this, scope: scope);
     _hideFloatingWidgetKeys = {
@@ -161,6 +163,9 @@ class ShowcaseView {
 
   /// Hides [globalFloatingActionWidget] for the provided showcase widgets.
   List<GlobalKey> hideFloatingActionWidgetForShowcase;
+
+  /// Global config for arrow to show on every tooltip widget.
+  TooltipArrowConfig? globalToolTipArrowConfig;
 
   /// Internal list to store showcase widget keys.
   List<GlobalKey>? _ids;

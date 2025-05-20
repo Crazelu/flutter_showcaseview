@@ -39,6 +39,7 @@ class ToolTipWidget extends StatefulWidget {
   /// stays within screen boundaries and maintains proper spacing from the
   /// target widget.
   const ToolTipWidget({
+    super.key,
     required this.title,
     required this.description,
     required this.titleTextStyle,
@@ -74,7 +75,7 @@ class ToolTipWidget extends StatefulWidget {
     this.descriptionPadding,
     this.titleTextDirection,
     this.descriptionTextDirection,
-    super.key,
+    this.arrowConfig,
   });
 
   final String? title;
@@ -112,6 +113,7 @@ class ToolTipWidget extends StatefulWidget {
   final EdgeInsets targetPadding;
   final ShowcaseController showcaseController;
   final double targetTooltipGap;
+  final TooltipArrowConfig? arrowConfig;
 
   @override
   State<ToolTipWidget> createState() => _ToolTipWidgetState();
@@ -180,6 +182,12 @@ class _ToolTipWidgetState extends State<ToolTipWidget>
 
     final targetPosition = box.localToGlobal(Offset.zero);
     final targetSize = box.size;
+
+    late final arrowPainter = widget.arrowConfig?.painter ??
+        _Arrow(strokeColor: widget.tooltipBackgroundColor!);
+
+    late final arrowSize = widget.arrowConfig?.size ??
+        const Size(Constants.arrowWidth, Constants.arrowHeight);
 
     final defaultToolTipWidget = widget.container != null
         ? MouseRegion(
@@ -314,8 +322,8 @@ class _ToolTipWidgetState extends State<ToolTipWidget>
             _TooltipLayoutId(
               id: TooltipLayoutSlot.arrow,
               child: CustomPaint(
-                painter: _Arrow(strokeColor: widget.tooltipBackgroundColor!),
-                size: const Size(Constants.arrowWidth, Constants.arrowHeight),
+                painter: arrowPainter,
+                size: arrowSize,
               ),
             ),
         ],

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
 import '../models/tooltip_action_config.dart';
+import '../models/tooltip_arrow_config.dart';
 import '../showcase/showcase_controller.dart';
 import '../utils/constants.dart';
 import '../utils/enum.dart';
