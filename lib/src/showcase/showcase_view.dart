@@ -87,6 +87,7 @@ class ShowcaseView {
     _hideFloatingWidgetKeys = {
       for (final item in hideFloatingActionWidgetForShowcase) item: true,
     };
+    _onFinish = onFinish;
   }
 
   /// Retrieves last registered [ShowcaseView].
@@ -102,7 +103,7 @@ class ShowcaseView {
   final String scope;
 
   /// Triggered when all the showcases are completed.
-  VoidCallback? onFinish;
+  final VoidCallback? onFinish;
 
   /// Triggered when showcase view is dismissed.
   final OnDismissCallback? onDismiss;
@@ -214,11 +215,13 @@ class ShowcaseView {
         <ShowcaseController>[];
   }
 
+  VoidCallback? _onFinish;
+
   /// Sets the [onFinish] callback.
   ///
   /// * [callback] - Callback to set
   void setOnFinishCallback(VoidCallback callback) {
-    onFinish = callback;
+    _onFinish = callback;
   }
 
   /// Starts showcase with given widget ids after the optional delay.
@@ -366,7 +369,7 @@ class ShowcaseView {
         _onStart();
         if (_activeWidgetId! >= _ids!.length) {
           _cleanupAfterSteps();
-          onFinish?.call();
+          _onFinish?.call();
         }
         OverlayManager.instance.update(show: isShowcaseRunning, scope: scope);
       },
