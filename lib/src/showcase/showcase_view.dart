@@ -102,7 +102,7 @@ class ShowcaseView {
   final String scope;
 
   /// Triggered when all the showcases are completed.
-  final VoidCallback? onFinish;
+  VoidCallback? onFinish;
 
   /// Triggered when showcase view is dismissed.
   final OnDismissCallback? onDismiss;
@@ -212,6 +212,13 @@ class ShowcaseView {
             ?.values
             .toList() ??
         <ShowcaseController>[];
+  }
+
+  /// Sets the [onFinish] callback.
+  ///
+  /// * [callback] - Callback to set
+  void setOnFinishCallback(VoidCallback callback) {
+    onFinish = callback;
   }
 
   /// Starts showcase with given widget ids after the optional delay.
