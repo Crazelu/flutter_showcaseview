@@ -114,6 +114,7 @@ class Showcase extends StatefulWidget {
     this.enableAutoScroll,
     this.floatingActionWidget,
     this.targetTooltipGap = 10,
+    this.onStart,
   })  : height = null,
         width = null,
         container = null,
@@ -205,6 +206,7 @@ class Showcase extends StatefulWidget {
     this.enableAutoScroll,
     this.toolTipMargin = 14,
     this.targetTooltipGap = 10,
+    this.onStart,
   })  : showArrow = true,
         onToolTipClick = null,
         scaleAnimationDuration = const Duration(milliseconds: 300),
@@ -534,6 +536,9 @@ class Showcase extends StatefulWidget {
   ///
   /// Defaults to 10.
   final double targetTooltipGap;
+
+  /// Triggered on start of the showcase.
+  final Future<void> Function()? onStart;
 
   @override
   State<Showcase> createState() => _ShowcaseState();
