@@ -432,6 +432,7 @@ class ShowcaseView {
       final controllerLength = controllers.length;
       for (var i = 0; i < controllerLength; i++) {
         final controller = controllers[i];
+        await controller.config.onStart?.call();
         final isAutoScroll =
             controller.config.enableAutoScroll ?? enableAutoScroll;
         if (controllerLength == 1 && isAutoScroll) {
