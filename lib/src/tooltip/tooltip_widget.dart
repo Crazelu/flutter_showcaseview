@@ -335,6 +335,7 @@ class _ToolTipWidgetState extends State<ToolTipWidget>
   void dispose() {
     _movingAnimationController.dispose();
     _scaleAnimationController.dispose();
+    _opacityAnimationController.dispose();
     super.dispose();
   }
 
