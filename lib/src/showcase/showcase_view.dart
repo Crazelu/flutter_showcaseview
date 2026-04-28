@@ -232,7 +232,6 @@ class ShowcaseView {
     List<GlobalKey> widgetIds, {
     Duration delay = Duration.zero,
   }) {
-    assert(_mounted, 'ShowcaseView is no longer mounted');
     if (!_mounted) return;
     _findEnclosingShowcaseView(widgetIds)._startShowcase(delay, widgetIds);
   }

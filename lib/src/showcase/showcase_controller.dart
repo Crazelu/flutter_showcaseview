@@ -166,10 +166,7 @@ class ShowcaseController {
   /// Returns a Future that completes when scrolling is finished. If the widget
   /// is unmounted during scrolling, the operation will be canceled safely.
   Future<void> scrollIntoView() async {
-    if (!_mounted) {
-      assert(_mounted, 'Widget has been unmounted');
-      return;
-    }
+    if (!_mounted) return;
 
     isScrollRunning = true;
     updateControllerData();
